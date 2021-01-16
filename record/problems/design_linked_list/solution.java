@@ -1,4 +1,4 @@
-class MyLinkedList {
+class MyLinkedList { //cur here acutally is prev
     static class ListNode {
         int val;
         ListNode next;
@@ -63,8 +63,8 @@ class MyLinkedList {
         for (int i = 0; i < index; ++i) {
             cur = cur.next;
         }
-
-        ListNode q = cur.next;
-        cur.next = q.next;
+        cur.next = cur.next.next;
+        // ListNode q = cur.next;
+        // cur.next = q.next;
     }
 }
