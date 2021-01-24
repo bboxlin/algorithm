@@ -30,18 +30,26 @@ class Solution {
         // }
         // return list;
         
-        Stack <TreeNode> stack = new Stack<>();
-        List <Integer> list = new ArrayList<>();
+        // Stack <TreeNode> stack = new Stack<>();
+        // List <Integer> list = new ArrayList<>();
+        // if(root == null) return list;
+        // stack.push(root);
+        // while(!stack.empty()){ 
+        //     root = stack.pop();//同步更改root;
+        //     list.add(root.val);
+        //     if(root.right != null) stack.push(root.right); //最早的right在最底下
+        //     if(root.left != null) stack.push(root.left); /
+        // }
+        // return list;
+        
+        List<Integer> list = new ArrayList(); 
+        return dfs(root, list);
+    }
+    public List<Integer> dfs (TreeNode root, List<Integer> list){
         if(root == null) return list;
-        stack.push(root);
-        while(!stack.empty()){ 
-            root = stack.pop();//同步更改root;
-            list.add(root.val);
-            if(root.right != null) stack.push(root.right);
-            if(root.left != null) stack.push(root.left);
-        }
+        list.add(root.val);
+        dfs(root.left, list);
+        dfs(root.right, list);
         return list;
-        
-        
     }
 }
