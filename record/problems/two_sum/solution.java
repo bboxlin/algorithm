@@ -5,7 +5,7 @@ class Solution {
         Map<Integer, Integer> myMap = new HashMap<>();
         for(int i = 0; i<nums.length; i++){
              int value = target - nums[i];
-            if(myMap.containsKey(value) && myMap.get(value) != i){
+            if(myMap.containsKey(value)){
                 //notice get (Object key) meaning to get the value in here is the index.
                 return new int[] {i,myMap.get(value)};
             }
