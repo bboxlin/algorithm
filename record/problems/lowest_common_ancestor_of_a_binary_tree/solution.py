@@ -14,16 +14,15 @@ class Solution:
             if node == p or node == q:
                 return node
             
-            leftnode = dfs(node.left)
+            leftnode = dfs(node.left) 
             rightnode = dfs(node.right)
+
+            if leftnode and rightnode: return node
+            return leftnode or rightnode
+            # if leftnode is None: return rightnode
+            # if rightnode is None: return leftnode
             
-            if leftnode is None:
-                return rightnode
-            
-            if rightnode is None:
-                return leftnode
-            
-            return node
-            
+            return null
+        
         return dfs(root)
              
