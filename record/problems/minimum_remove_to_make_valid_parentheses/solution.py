@@ -13,20 +13,32 @@ class Solution:
         # (i,括号)
         stack = [] #parenthesis
         sl = list(s)
-        for i in range(len(sl)): 
-            if sl[i] == ')':
-                if stack and stack[-1][1] == '(': 
+        
+        for i, c in enumerate(sl):
+            if c == '(':
+                stack.append((i,c))
+            elif c == ')':
+                if stack:
                     stack.pop()
                 else:
                     sl[i] = ""
-            elif sl[i] == '(':
-                stack.append((i, sl[i]))
-        
-        # 2,(  3,(  
-        for i, p in stack:
+        for i, openp in stack:
             sl[i] = ""
-            
-        return "".join(sl)
-        #))(( 
-        # (( 
-        #
+        return "".join(sl)        
+        
+        
+#         for i in range(len(sl)): 
+#             if sl[i] == ')':
+#                 if stack and stack[-1][1] == '(': 
+#                     stack.pop()
+#                 else:
+#                     sl[i] = ""
+#             elif sl[i] == '(':
+#                 stack.append((i, sl[i]))
+        
+#         # 2,(  3,(  
+#         for i, p in stack:
+#             sl[i] = ""       
+#         return "".join(sl)
+    
+        
