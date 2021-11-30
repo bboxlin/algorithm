@@ -9,7 +9,7 @@ class Node:
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
-        if not root: return
+        if not root: return root
         
         def dfs(curNode):
             nonlocal prev
@@ -23,7 +23,7 @@ class Solution:
         
         
         dummy = Node(-1)
-        prev = dummy
+        prev = dummy # use as a prev traverse through tree and change the pointers
         dfs(root)
         
         # head tail connection
