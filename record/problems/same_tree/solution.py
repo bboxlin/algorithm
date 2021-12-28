@@ -14,13 +14,10 @@ class Solution:
             while que:
                 node1 = que.popleft()
                 node2 = que.popleft()
-
                 if node1 == None and node2 == None: continue
                 if node1 == None or node2 == None or node1.val != node2.val: return False
-
                 que.append(node1.left)
                 que.append(node2.left)
-
                 que.append(node1.right)
                 que.append(node2.right)
             return True
