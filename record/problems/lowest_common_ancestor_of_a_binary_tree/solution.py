@@ -19,8 +19,6 @@ class Solution:
 
             if leftnode and rightnode: return node
             return leftnode or rightnode
-            # if leftnode is None: return rightnode
-            # if rightnode is None: return leftnode
             
             return null
         
