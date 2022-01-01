@@ -14,7 +14,6 @@ class Solution:
             right = dfs(root.right)
             if abs(left - right) > 1:
                 self.balance = False
-                return -1
             return max(left, right)+1
         self.balance = True
         dfs(root)
