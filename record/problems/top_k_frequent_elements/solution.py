@@ -1,18 +1,17 @@
+import heapq
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        memo = {}
+        freq = {}
         for n in nums:
-            if n in memo:
-                memo[n] += 1
+            if n not in freq:
+                freq[n] = 0
             else:
-                memo[n] = 1
-                
-        lst = list(memo.items())
-        lst.sort(key = lambda x:x[1], reverse= True)
+                freq[n] += 1
+        max_heap = [(-fre, n) for n, fre in freq.items()]
+        heapq.heapify(max_heap)
         res = []
         for i in range(k):
-            res.append(lst[i][0])
-            
+            res.append(heapq.heappop(max_heap)[1])
         return res
             
                 
