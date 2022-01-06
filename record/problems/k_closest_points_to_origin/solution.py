@@ -1,21 +1,20 @@
+import heapq
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        
-        def length(coordinate):
-            return abs(coordinate[0]*coordinate[0]) + abs(coordinate[1]*coordinate[1])
-        
-        memo = []
-        for point in points:
-            distance = length(point)
-            memo.append((distance, point))
-        #[(distanct, [point]) ... ]
-         
-        memo.sort(key = lambda x:x[0])
+        min_heap = []   
+        for x, y in points:
+            tup = (x*x+y*y, [x, y])
+            heapq.heappush(min_heap, tup)
         res = []
-        
-        for i in range(k):
-            res.append(memo[i][1])
+        for _ in range(k):
+            res.append(heapq.heappop(min_heap)[1])
         return res
+        
+                
+
+            
+        
+        
             
 
                 
