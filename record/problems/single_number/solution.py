@@ -1,7 +1,15 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        # O(n) run time, O(1) space
-        repeat = 0
-        for num in nums:
-            repeat = repeat^num
-        return repeat
+        
+        freq = {}
+        for n in nums:
+            if n in freq:
+                freq[n] += 1
+            else:
+                freq[n] = 1
+        
+        for n, count in freq.items():
+            if count == 1:
+                return n
+        return None
+    
