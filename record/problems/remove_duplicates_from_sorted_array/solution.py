@@ -1,11 +1,7 @@
 class Solution:
     def removeDuplicates(self, arr: List[int]) -> int:
-        i, j = 0, 0
-        while j<len(arr):
-            if i == 0 or arr[j] != arr[i-1]:
-                arr[i] = arr[j]
-                i+=1
-                j+=1
-            else: 
-                j+=1
-        return i
+        distinct = set(arr)
+        new_arr = sorted(list(distinct))
+        for i in range(len(new_arr)):
+            arr[i] = new_arr[i]
+        return len(distinct)
