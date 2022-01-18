@@ -5,19 +5,14 @@
 
 class Solution:
     def firstBadVersion(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        l, r = 0, n
-        res = -1
+        res = 0
+        l, r = 1, n
         while l <= r:
-            mid = l + (r-l)//2
+            mid = l + r >> 1
             if isBadVersion(mid):
-                res = mid 
+                res = mid
                 r = mid - 1
             else:
                 l = mid + 1
-                
         return res
         
