@@ -1,18 +1,18 @@
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        
-        '''
-        two extreme are left and right
-        pick the max one and put it into the res list from last to first
-        '''
-        l, r = 0, len(nums)-1
-             
-        res = [0]*len(nums)
-        for i in range(len(nums)-1, -1, -1):
-            if abs(nums[l]) < abs(nums[r]):
-                res[i] = nums[r] * nums[r]
-                r -= 1
-            else:
-                res[i] = nums[l] * nums[l]
+        n = len(nums)
+        res = [0]*n
+        l, r = 0, n-1
+        for i in range(n-1, -1, -1):
+            leftmost = nums[l]
+            rightmost = nums[r]
+            if abs(leftmost) > abs(rightmost):
+                res[i] = leftmost**2
                 l += 1
+            else:
+                res[i] = rightmost**2
+                r -= 1
         return res
+                
+        
+            
