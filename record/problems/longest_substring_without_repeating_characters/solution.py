@@ -1,15 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        memo = collections.defaultdict(int)
-        i = 0
-        res = 0
-        for j, c in enumerate(s):
-            if c in memo.keys():
-                i = max(memo[c] + 1, i)
-            memo[c] = j
-            res = max(res, j-i+1)
-        return res
+        visited = set()
+        max_len = 0
+        i, j = 0, 0
         
+        for j in range(len(s)):
+            while s[j] in visited:
+                visited.remove(s[i])
+                i += 1
+            visited.add(s[j])
+            max_len = max(max_len, j-i+1)             
+        return max_len
+             
 
         
             
