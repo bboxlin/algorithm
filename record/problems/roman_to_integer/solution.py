@@ -19,9 +19,13 @@ class Solution:
             'M':1000
         }
         res = 0
-        for i in range(len(s)):
-            if i+1 < len(s) and lookup[s[i]] < lookup[s[i+1]]:
-                res -= lookup[s[i]]
+        for i in range(len(s)-1):
+            cur = s[i]
+            nex = s[i+1]
+            if lookup[nex] > lookup[cur]:
+                res -= lookup[cur]
             else:
-                res += lookup[s[i]]
-        return res        
+                res += lookup[cur]
+                
+        res += lookup[s[-1]]
+        return res
