@@ -1,0 +1,8 @@
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+        sign = 1
+        for n in nums:
+            if n == 0: return 0
+            elif n < 0:
+                sign = sign * -1
+        return sign
