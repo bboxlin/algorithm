@@ -1,12 +1,10 @@
+import collections
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        memo = {}
-        for string in strs:
-            key_lst = [c for c in string]
-            key = str(sorted(key_lst))
-            if key not in memo:
-                memo[key] = [string]
-            else:
-                memo[key].append(string)
-                
-        return list(memo.values())
+        ans = collections.defaultdict(list)
+        for s in strs:
+            idx = [0]*26
+            for c in s:
+                idx[ord(c) - ord('a')] += 1
+            ans[tuple(idx)].append(s)
+        return ans.values()
