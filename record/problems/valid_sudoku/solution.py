@@ -1,32 +1,33 @@
+import collections
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        row = set()
-        col = set()
-        block = collections.defaultdict(set)
-        for i in range(len(board)):
-            for j in range(len(board[i])):
+        
+        # check for rows 
+        rowset, colset = set(), set()
+        
+        # check for box
+        boxTable = collections.defaultdict(set)
                 
-                if board[i][j] != '.':
-                    # check for row
-                    if board[i][j] not in row:
-                        row.add(board[i][j])
-                    else:
-                        return False
-                    
-                    # check for block
-                    if board[i][j] in block[(i//3, j//3)]:
-                        return False
-                    else:
-                        block[(i//3, j//3)].add(board[i][j])
-                    
-                # check for column
-                if board[j][i] != '.':
-                    if board[j][i] not in col:
-                        col.add(board[j][i])
-                    else:
-                        return False
-                
-                
-            col.clear()
-            row.clear()
+        for row in range(len(board)):
+            for col in range(len(board[row])):
+                rowNum = board[row][col]
+                colNum = board[col][row]
+                boxkey = (row//3, col//3)
+                if boxkey in boxTable.keys() and rowNum in boxTable[boxkey]:
+                    return False
+                if rowNum in rowset:
+                    return False
+                if colNum in colset:
+                    return False
+                if rowNum != '.':
+                    rowset.add(rowNum)
+                    boxTable[boxkey].add(rowNum)
+                if colNum != '.':
+                    colset.add(colNum)  
+            rowset.clear()
+            colset.clear()
         return True
+        
+        
+        
