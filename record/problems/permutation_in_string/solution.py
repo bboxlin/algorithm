@@ -1,39 +1,21 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
+        len1, len2 = len(s1), len(s2)
+        if len1 > len2: return False
+         
+        cntS1, cntS2 = [0]*26, [0]*26
+        for i in range(len1):
+            cntS1[ord(s1[i]) - ord('a')] += 1
+            cntS2[ord(s2[i]) - ord('a')] += 1
+        if cntS1 == cntS2: return True
         
-        def counter_allzero():
-            for v in counter.values():
-                if v != 0:
-                    return False
-            return True
-        
-        if len(s1) > len(s2): return False
-        
-        # prepare the counter for s1
-        counter = {}
-        for c in s1:
-            if c not in counter: counter[c] = 1
-            else: counter[c] += 1
-        
-        # check if the first window of s2 is permutation or not
-        window_size = len(s1)
-        for i in range(window_size):
-            c = s2[i]
-            if c in counter:
-                counter[c] -= 1
-        if counter_allzero(): return True
-        
-        # check for the rest windows
-        for i in range(window_size, len(s2)):
-            fast = s2[i]
-            slow = s2[i-window_size]
-            if fast in counter:
-                counter[fast] -= 1
-            if slow in counter:
-                counter[slow] += 1
-            if counter_allzero():
-                return True
+        for i in range(len1, len2):
+            cntS2[ord(s2[i]) - ord('a')] += 1
+            cntS2[ord(s2[i-len1]) - ord('a')] -= 1
+            if cntS1 == cntS2: return True
         return False
+        
+            
                 
             
             
