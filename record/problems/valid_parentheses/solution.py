@@ -1,17 +1,13 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        pset = {'(':')', '{':'}', '[':']'}
         stack = []
-        memo = {")":"(","}":"{","]":"["}
-        for p in s:
-            if p in memo.keys():
-                pair = memo.get(p)
-                if stack!=[] and pair == stack[-1]:
-                    stack.pop()
-                # Else when close parenthese passing in when stack empty, return False
-                else:return False
-            # Else if not close parenthese we keep append 
+        for c in s:
+            if c in pset.keys():
+                stack.append(c)
             else:
-                stack.append(p)
-
-        return stack == []
-            
+                if stack and pset[stack[-1]] == c:
+                    stack.pop()
+                else:
+                    return False
+        return len(stack) == 0
