@@ -1,29 +1,28 @@
+class Node:
+    def __init__(self, val, minVal, nxt):
+        self.minVal = minVal
+        self.val = val
+        self.nxt = nxt
+
 class MinStack:
     def __init__(self):
-        """
-        initialize your data structure here.
-        """
-        self.stack = []
-        self.min = []
+        self.head = None 
 
     def push(self, val: int) -> None:
-        if self.stack == []:
-            self.stack.append(val)
-            self.min.append(val)
+        if not self.head:
+            self.head = Node(val, val, None)
         else:
-            self.stack.append(val)
-            newMin = min(val, self.min[-1])
-            self.min.append(newMin)
+            nxtNode = Node(val, min(self.head.minVal, val), self.head)
+            self.head = nxtNode      
 
     def pop(self) -> None:
-        self.stack.pop()
-        self.min.pop()
+        self.head = self.head.nxt
 
     def top(self) -> int:
-        return self.stack[-1]
+        return self.head.val
 
     def getMin(self) -> int:
-        return self.min[-1]
+        return self.head.minVal
 
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
