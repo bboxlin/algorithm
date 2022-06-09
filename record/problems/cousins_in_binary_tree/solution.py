@@ -6,19 +6,18 @@
 #         self.right = right
 class Solution:
     def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
-        def traverse(root, depth, parent):
+        xinfo, yinfo = [], []
+        def dfs(root, pnode, depth):
             if not root:
-                return
-            if root.val == x:
-                self.x_depth = depth
-                self.x_parent = parent
+                return 
+            if root.val == x: 
+                xinfo.append(pnode)
+                xinfo.append(depth)
             if root.val == y:
-                self.y_depth = depth
-                self.y_parent = parent
-            traverse(root.left, depth+1, root)
-            traverse(root.right, depth+1, root)
-
-        self.x_depth, self.y_depth = 0, 0
-        self.x_parent, self.y_parent = None, None
-        traverse(root, 0, None)
-        return self.x_depth == self.y_depth and self.x_parent != self.y_parent
+                yinfo.append(pnode)
+                yinfo.append(depth)
+            dfs(root.left, root, depth+1)
+            dfs(root.right, root, depth+1)
+        dfs(root, None, 0)
+        if len(xinfo) == 0 or len(yinfo) == 0: return False
+        return xinfo[0] != yinfo[0] and xinfo[1] == yinfo[1]
