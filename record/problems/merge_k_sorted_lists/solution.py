@@ -3,19 +3,27 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import heapq
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        dummyHead = ListNode(-1)
-        cur = dummyHead
-        val_dict = collections.defaultdict(list)
-        for sub_head in lists:
-            while sub_head:
-                val_dict[sub_head.val].append(sub_head)
-                sub_head = sub_head.next
-        good_keys = sorted(val_dict.keys())
-        for k in good_keys:
-            for node in val_dict[k]:
-                cur.next = node
-                cur = cur.next
+    
+        dummyHead = ListNode()
+        ptr = dummyHead
+        
+        minHeap = []
+        for idx, l in enumerate(lists):
+            if l:
+                heapq.heappush(minHeap, (l.val, idx))
+                lists[idx] = lists[idx].next
+  
+        while minHeap:
+            curMinVal, curMinIdx = heapq.heappop(minHeap)
+            
+            ptr.next = ListNode(curMinVal)
+            ptr = ptr.next 
+            
+            if lists[curMinIdx]:
+                heapq.heappush(minHeap, (lists[curMinIdx].val, curMinIdx))
+                lists[curMinIdx] = lists[curMinIdx].next
+
         return dummyHead.next
-                
