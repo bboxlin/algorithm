@@ -1,16 +1,22 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        #     7 
+        #  2 3 6  7
         res = []
-        def dfs(i, one_solution, cur_value):       
-            if cur_value < 0 or i >= len(candidates): return
-            if cur_value == 0:
-                res.append(one_solution.copy())
-                return
-            one_solution.append(candidates[i])
-            dfs(i, one_solution, cur_value - candidates[i])
-            one_solution.pop()
-            dfs(i+1, one_solution, cur_value)
-        dfs(0,[],target)
+        def dfs(i, rem, arr):       
+            if rem == 0:
+                res.append(arr.copy())
+            if rem < 0:
+                return 
+            
+            for idx in range(i, len(candidates)):
+                arr.append(candidates[idx])
+                dfs(idx, rem -candidates[idx], arr)
+                arr.pop()
+                
+
+                
+        dfs(0, target, [])
         return res
        
         
