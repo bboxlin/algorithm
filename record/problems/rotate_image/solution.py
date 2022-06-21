@@ -1,15 +1,16 @@
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
-        l, t = 0,0
-        r, d = len(matrix)-1, len(matrix)-1
-        while l < r:
-            for i in range(r-l):
-                temp = matrix[t][l+i]
-                matrix[t][l+i] = matrix[d-i][l]
-                matrix[d-i][l] = matrix[d][r-i]
-                matrix[d][r-i] = matrix[t+i][r]
-                matrix[t+i][r] = temp
-            l+=1
-            r-=1
-            t+=1
-            d-=1
+        left = top = 0
+        right = bottom = len(matrix)-1
+        while left < right:
+            steps = right - left
+            for i in range(steps):
+                tem = matrix[top][left+i]
+                matrix[top][left+i] = matrix[bottom-i][left]
+                matrix[bottom-i][left] = matrix[bottom][right-i]
+                matrix[bottom][right-i] = matrix[top + i][right]
+                matrix[top + i][right] = tem
+            left += 1
+            right -=1 
+            top += 1
+            bottom -= 1
