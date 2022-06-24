@@ -1,24 +1,31 @@
+import collections
+
+class TrieNode:
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self.words = [] 
+        
+    def insert(self, product):
+        node = self
+        for c in product:
+            node = node.children[c]   
+            if len(node.words) < 3: 
+                node.words.append(product)
+    
+    def search(self, searchWord):
+        ans = []
+        node = self
+        for c in searchWord:
+            node = node.children[c]
+            ans.append(node.words)
+        return ans
+    
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        class TrieNode:
-            def __init__(self):
-                self.children = collections.defaultdict(TrieNode)
-                self.suggestion = []
-            
-            def add_sugestion(self, product):
-                if len(self.suggestion) < 3:
-                    self.suggestion.append(product)
-        
-        products = sorted(products)
+        products.sort()
         root = TrieNode()
-        for p in products:
-            node = root
-            for char in p:
-                node = node.children[char]
-                node.add_sugestion(p)
+        for product in products:
+            root.insert(product)
+        return root.search(searchWord)
         
-        result, node = [], root
-        for char in searchWord:
-            node = node.children[char]
-            result.append(node.suggestion)
-        return result
+      
