@@ -1,9 +1,12 @@
+from typing import List
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        dic = {}
-        for i,n in enumerate(nums):
-            rem = target - n 
-            if rem in dic:
-                return [i, dic[rem]]
-            dic[n] = i
+        memo = {}
+        for i, n in enumerate(nums):
+            if target - n in memo.keys(): 
+                return [memo[target-n], i]
+            memo[n] = i
         return [-1, -1]
+        
