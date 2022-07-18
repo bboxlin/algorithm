@@ -6,7 +6,8 @@ class Solution:
         for i, num in enumerate(arr):
             while stack and num < arr[stack[-1]]:
                 cur_i = stack.pop()
-                                    # left                 right
+                # left                 right
                 res += arr[cur_i] * (cur_i - stack[-1])* (i - cur_i)
+                print(arr[cur_i], str(cur_i), str(stack[-1]), i, cur_i)
             stack.append(i)
         return res%(10**9+7)
