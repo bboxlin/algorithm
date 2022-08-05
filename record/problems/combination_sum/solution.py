@@ -1,7 +1,6 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        #     7 
-        #  2 3 6  7
+  
         res = []
         def dfs(i, rem, arr):       
             if rem == 0:
@@ -13,9 +12,7 @@ class Solution:
                 arr.append(candidates[idx])
                 dfs(idx, rem -candidates[idx], arr)
                 arr.pop()
-                
-
-                
+                    
         dfs(0, target, [])
         return res
        
