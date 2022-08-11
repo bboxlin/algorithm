@@ -1,25 +1,23 @@
-import collections
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
+ 
+        lookup = defaultdict(int)
+        for val in nums:
+            lookup[val] += val 
         
-        # [1, 2, 3]
-        # e1 e2 curearn
-        # check for max(e1+curearn, e2)
          
-        count = collections.Counter(nums)
-        e1, e2 = 0, 0
-        nums = list(set(nums))
-        for i in range(len(nums)):
-            cur_earn = nums[i]*count[nums[i]]
-            if i > 0 and (nums[i] == nums[i-1]+1 or nums[i] == nums[i-1]-1):
-                tmp = e2
-                e2 = max(e1+cur_earn, e2)
-                e1 = tmp
+        nums = sorted(list(set(nums)))
+        n = len(nums)
+        dp = [0]*n
+        
+        
+        for i in range(n):
+            if i == 0: dp[i] = lookup[nums[i]]
+            elif i == 1: dp[i] = max(dp[i-1], lookup[nums[i]]) if nums[i] == nums[i-1] + 1 else dp[i-1] + lookup[nums[i]] 
+            elif nums[i] == nums[i-1] + 1:
+                dp[i] = max( dp[i-1],  lookup[nums[i]] + dp[i-2] ) 
             else:
-                tmp = e2
-                e2 = cur_earn + e2
-                e1 = tmp
-        return e2
-            
-            
+                dp[i] = dp[i-1] + lookup[nums[i]] 
+        print(dp)
+        return dp[n-1]
         
