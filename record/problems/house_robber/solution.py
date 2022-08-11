@@ -15,7 +15,6 @@ class Solution:
                 b = total 
         return total                
                 
-
 class Solution2:
     def rob(self, nums: List[int]) -> int:
         dp = [0]*len(nums)
