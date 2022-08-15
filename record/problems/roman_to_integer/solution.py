@@ -1,13 +1,5 @@
 class Solution:
-    '''
-    i, i+1, i+2 ...
-    in general 
-    where i > i+1 > i+2 -> Roman[i i+1 i+2] --> 
-    
-    if i < i+1
-    then i = -i 
-    only a i can exsit in that way
-    '''
+
     def romanToInt(self, s: str) -> int:
         lookup = {
             'I':1,
@@ -19,13 +11,14 @@ class Solution:
             'M':1000
         }
         res = 0
-        for i in range(len(s)-1):
-            cur = s[i]
-            nex = s[i+1]
-            if lookup[nex] > lookup[cur]:
-                res -= lookup[cur]
+        n = len(s)
+        for i in range(n):
+            if i == n-1:
+                res += lookup[s[i]]
             else:
-                res += lookup[cur]
+                if lookup[s[i+1]] > lookup[s[i]]:
+                    res -= lookup[s[i]]
+                else:
+                    res += lookup[s[i]]
                 
-        res += lookup[s[-1]]
         return res
