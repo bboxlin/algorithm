@@ -5,6 +5,7 @@ class Solution:
         for i in range(2, N):
             if nums[i] - nums[i-1] == nums[i-1] - nums[i-2]:
                 dp[i] = 1 + dp[i-1]
+        print(dp)
         return sum(dp)
                 
             
