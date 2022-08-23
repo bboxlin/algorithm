@@ -1,21 +1,17 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        
-        def dfs(i):
-            if i == len(s):
-                return True
-            if i in cache:
-                return cache[i] 
-            for j in range(i + 1, len(s) + 1):
-                if s[i:j] in dic and dfs(j):
-                    #cache[j] = True
-                    return True
-            cache[i] = False
-            return False
-        cache = {}
-        dic = set(wordDict)
-        return dfs(0)
-
+        wordDict = set(wordDict)
+        n = len(s)
+        dp = [False] * (n+1)
+        dp[0] = True
+        for j in range(n+1):
+            for i in range(j):
+                # if word ending i is true, and now i:j is in wordDict, then at j is True
+                if dp[i] and s[i:j] in wordDict:
+                    dp[j] = True
+                    break
+        print(dp)
+        return dp[n]
             
         
             
