@@ -6,24 +6,23 @@
 #         self.right = right
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
-         
-        
-        def dfs(root,depth):
-            if not root:
-                return
-            if depth not in subtotal.keys():
-                subtotal[depth] = [root.val, 1]
-            else:
-                subtotal[depth][0] += root.val
-                subtotal[depth][1] += 1
-            dfs(root.left, depth+1)
-            dfs(root.right, depth+1)
+        ans = []
+        q = deque([root])
+        while q:
+            level_len = len(q)
+            curlevel_sum = 0
+            for _ in range(level_len):
+                node = q.popleft() 
+                leftnode = node.left 
+                rightnode = node.right
+                if leftnode:
+                    q.append(leftnode)
+                if rightnode:
+                    q.append(rightnode)
+                curlevel_sum += node.val
+            ans.append(curlevel_sum/level_len)
+        return ans
             
-        subtotal = collections.defaultdict(list)
-        dfs(root, 0)
-        res = []
-        for v in subtotal.values():
-            subtotal, count = v
-            res.append(subtotal/count)
-         
-        return res
+            
+            
+        
