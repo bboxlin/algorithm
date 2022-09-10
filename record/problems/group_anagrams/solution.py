@@ -1,10 +1,21 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        table = defaultdict(list)
+        # 每个element sort 一遍
+        # ？ 如何把相同的放一块
+        # dic = defaultdict(list)
+        # for word in strs:
+        #     k = tuple(sorted(list(word)))
+        #     dic[k].append(word)
+        # return dic.values()
+    
+        dic = defaultdict(list)
         for word in strs:
-            arr = [0] * 26
+            keylist = [0] * 26
             for c in word:
-                arr[ord(c) - ord('a')] += 1
-            table[tuple(arr)].append(word)
-        return list(table.values())
-         
+                idx = ord(c) - ord("a")
+                keylist[idx] += 1
+            k = tuple(keylist)
+            dic[k].append(word)
+        return dic.values()
+            
+        
