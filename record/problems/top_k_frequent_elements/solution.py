@@ -1,28 +1,27 @@
-import heapq
-
-class Node:
-    def __init__(self, val, frequency):
-        self.val = val
-        self.frequency = frequency
-    
-    def __lt__(self, other):
-        if self.frequency > other.frequency:  
-            return True    
-        else:  
-            return False                      
-
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freq = Counter(nums)
-        maxheap = [Node(val, f) for val, f in freq.items()]
-        heapq.heapify(maxheap)
+        # Time: O(nlogn)
+        # Space: O(n)
+#         freqDict = defaultdict(int)
+#         for num in nums:
+#             freqDict[num] += 1
+        
+#         ans = []
+        
+#         lst = list(freqDict.items())
+#         lst.sort(key = lambda x: x[1], reverse=True)
+#         return [ num for num, freq in lst[:k] ] 
+    
+        freqDict = defaultdict(int)
+        for num in nums:
+            freqDict[num] += 1
+        
         ans = []
-        while k:
-            node = heapq.heappop(maxheap)
-            ans.append(node.val)
+        maxheap = [ (-freq, num) for num, freq in freqDict.items() ]
+        heapq.heapify(maxheap)  # o(n)
+        
+        while heapq and k > 0:
+            nfreq, curnum = heapq.heappop(maxheap)
+            ans.append(curnum)
             k -= 1
         return ans
-
-
-
-            
