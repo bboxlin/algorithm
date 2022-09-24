@@ -1,30 +1,18 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
         n = len(chars)
-        i, write = 0, 0 
+        i = 0
+        write = 0
         while i < n:
-            j = i 
+            j = i
             while j < n and chars[j] == chars[i]:
                 j += 1
             chars[write] = chars[i]
             write += 1
-            if j-i > 1:
-                cnt = j - i
-                begin = write
-                while cnt > 0:
-                    num = str(cnt % 10)
-                    cnt = cnt // 10
-                    chars[write] = num
+            if j - i > 1:
+                for c in str(j-i):
+                    chars[write] = c
                     write += 1
-                end = write - 1 
-                
-                while begin < end:
-                    chars[begin], chars[end] = chars[end], chars[begin]
-                    begin += 1
-                    end -= 1
-                
-            i = j 
+            i = j
         return write
- 
-                        
                 
