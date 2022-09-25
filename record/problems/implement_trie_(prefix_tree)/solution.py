@@ -1,46 +1,41 @@
-"""
-For Node Instance with attribute 
-
-- child (edge)
-- is_end (leaf)
-"""
 class Node:
     def __init__(self):
-        self.child = {}
-        self.is_end = False
-        
-"""
-Trie structure that holds collection of Node.
-"""
+        self.children = {} 
+        self.isEnd = False 
+
 class Trie:
 
     def __init__(self):
-        self.root = Node()
-    
+        self.root = Node() 
+
     def insert(self, word: str) -> None:
-        # cur pointer traverse trie from root
-        cur = self.root
+        node = self.root 
         for c in word:
-            if not c in cur.child:
-                # set current node edge in a weight of character to a new node
-                cur.child[c] = Node()
-            # traverse to the end
-            cur = cur.child[c]
-        cur.is_end = True
+            if c not in node.children:
+                node.children[c] = Node()
+            node = node.children[c]
+        node.isEnd = True
 
     def search(self, word: str) -> bool:
-        cur = self.root
+        node = self.root 
         for c in word:
-            if c not in cur.child:
-                return False
-            cur = cur.child[c]
-        # see if can reach to leaf
-        return cur.is_end
-
+            if c not in node.children:
+                return False 
+            node = node.children[c]
+        return node.isEnd
+        
     def startsWith(self, prefix: str) -> bool:
-        cur = self.root
-        for p in prefix:
-            if p not in cur.child:
-                return False
-            cur = cur.child[p]
+        node = self.root 
+        for c in prefix:
+            if c not in node.children:
+                return False 
+            node = node.children[c]
         return True
+        
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
