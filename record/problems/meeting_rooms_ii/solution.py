@@ -1,22 +1,18 @@
-import heapq
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        
-        rooms = 1
-        sorted_interval = sorted(intervals)
-        min_heap = [sorted_interval[0][1]]
-        for start, end in sorted_interval[1:]:
-            last_end = min_heap[0]
-            if start < last_end:
-                rooms += 1
-                heapq.heappush(min_heap, end)
+        # 0-30  ---> 1个房间
+        # 5-10  ---> 多创建1个
+        # 15-20 ---> 用5-10的房间
+        intervals.sort() 
+        room = 0
+        minheap = []   #存放meeting结束的时间
+        for begin, end in intervals:
+            if not minheap or minheap[0] > begin: #如果之前最早结束的时间 > 我们当前开始的时间
+                room += 1
+                heappush(minheap, end)
             else:
-                # merge the meeting
-                heapq.heappop(min_heap)
-                heapq.heappush(min_heap, end)
-            
-        print(len(min_heap))
-        return rooms
-    
-        # [[4,9],[4,17],[9,10]]
-        #          2 
+                #如果之前最早结束的时间 <= 我们当前开始的时间 
+                heappop(minheap)
+                heappush(minheap, end)
+        return len(minheap)
+        
