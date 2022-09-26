@@ -1,55 +1,63 @@
-class ListNode:
-    def __init__(self, key, val):
-        self.key = key
-        self.val = val
+
+class Node:
+    def __init__(self, key, value):
+        self.key = key 
+        self.value = value 
         self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.root = Node(-1,-1)
         
+    def add(self, key, value):
+        newnode = Node(key, value)
+        
+        # 1) 如果linkedlist 里面没有(key,val) , add node to the tail
+        # 2) 如果有, 就改变value
+        cur = self.root 
+        while cur.next:
+            if cur.next.key == key:
+                cur.next.value = value
+                return
+            cur = cur.next 
+        cur.next = newnode
+    
+    def get(self, key):
+        cur = self.root 
+        while cur.next:
+            if cur.next.key == key:
+                return cur.next.value
+            cur = cur.next
+        return -1
+    
+    def remove(self, key):
+        cur = self.root 
+        while cur.next:
+            if cur.next.key == key:
+                cur.next = cur.next.next 
+                return          
+            cur = cur.next
+            
 class MyHashMap:
 
     def __init__(self):
         self.size = 2069
-        # dummyHead
-        self.table = [ ListNode(-1,-1) for _ in range(self.size)]
-        
+        self.bucket = [LinkedList() for _ in range(self.size)]  
+
     def put(self, key: int, value: int) -> None:
-        hashKey = key % self.size 
-        dummyHead = self.table[hashKey]
-        node = dummyHead
-        
-        while node.next:
-            if node.next.key == key:
-                node.next.val = value
-                return 
-            node = node.next 
-        node.next = ListNode(key,value)
+        hashkey = key % self.size  
+        curLinkedlist = self.bucket[hashkey]
+        curLinkedlist.add(key,value)
         
     def get(self, key: int) -> int:
-        hashKey = key % self.size 
-        dummyHead = self.table[hashKey]
-        node = dummyHead
+        hashkey = key % self.size
+        curLinkedlist = self.bucket[hashkey]
+        return curLinkedlist.get(key)
         
-        while node.next:
-            if node.next.key == key:
-                return node.next.val
-            node = node.next
-        return -1
-
     def remove(self, key: int) -> None:
-        hashKey = key % self.size 
-        dummyHead = self.table[hashKey]
-        node = dummyHead
-        prev = dummyHead 
-        
-        while node.next:
-            if node.next.key == key:
-                prev.next = prev.next.next 
-                return 
-            node = node.next 
-            prev = prev.next 
-            
-        
-       
-            
+        hashkey = key % self.size 
+        curLinkedlist = self.bucket[hashkey]
+        curLinkedlist.remove(key)
         
 
 
