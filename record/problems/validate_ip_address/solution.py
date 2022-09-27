@@ -1,7 +1,7 @@
 class Solution:
     def validIPAddress(self, queryIP: str) -> str:
-        
         def checkIpv4(lst):
+            if len(lst) != 4: return "Neither"
             for strnum in lst:
                 try:
                     intnum = int(strnum)
@@ -10,9 +10,8 @@ class Solution:
                 except:
                     return 'Neither'
             return 'IPv4'
-        
-        
         def checkIpv6(lst):
+            if len(lst) != 8: return "Neither"
             content = '0123456789abcdefABCDEF'
             for stritem in lst:
                 if len(stritem) < 1 or len(stritem) > 4:
@@ -21,8 +20,6 @@ class Solution:
                     if c not in content:
                         return 'Neither'
             return 'IPv6'
-        
-        
         if queryIP.count('.') == 3:
             lst = queryIP.split('.')
             return checkIpv4(lst)
