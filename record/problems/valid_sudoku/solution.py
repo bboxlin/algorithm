@@ -1,33 +1,34 @@
-import collections
-
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = len(board)
+        cols = len(board[0])
         
-        # check for rows 
-        rowset, colset = set(), set()
+        rowset = set()
+        colset = set() 
+        block = defaultdict(set)
         
-        # check for box
-        boxTable = collections.defaultdict(set)
+        for i in range(rows):
+            for j in range(cols):
+                rownum = board[i][j]
+                colnum = board[j][i]
                 
-        for row in range(len(board)):
-            for col in range(len(board[row])):
-                rowNum = board[row][col]
-                colNum = board[col][row]
-                boxkey = (row//3, col//3)
-                if boxkey in boxTable.keys() and rowNum in boxTable[boxkey]:
+                if rownum in rowset: 
+                    return False 
+                if colnum in colset: 
                     return False
-                if rowNum in rowset:
+                
+                if rownum != '.': rowset.add(rownum)
+                if colnum != '.': colset.add(colnum)
+                
+                key = (i // 3, j //3)
+                if key in block.keys() and board[i][j] in block[key]:
                     return False
-                if colNum in colset:
-                    return False
-                if rowNum != '.':
-                    rowset.add(rowNum)
-                    boxTable[boxkey].add(rowNum)
-                if colNum != '.':
-                    colset.add(colNum)  
+                if board[i][j] != '.':
+                    block[key].add(board[i][j])
+            
             rowset.clear()
-            colset.clear()
+            colset.clear() 
+        
         return True
-        
-        
-        
+                
+                
