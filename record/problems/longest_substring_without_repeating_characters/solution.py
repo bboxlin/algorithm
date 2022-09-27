@@ -1,13 +1,28 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        n = len(s)
-        distinctSet = set()
+        # ans = 0
+        # charSet = set() 
+        # l = 0
+        # for r in range( len(s) ):   
+        #     while s[r] in charSet: 
+        #         charSet.remove(s[l])
+        #         l += 1
+        #     ans = max(ans, r-l+1)
+        #     charSet.add(s[r])
+        # return ans   
+    
         ans = 0
+        lastidx = {}
         l = 0
-        for r in range(n):
-            while s[r] in distinctSet:
-                distinctSet.remove(s[l])
-                l += 1
-            distinctSet.add(s[r])
-            ans = max(ans, len(distinctSet))
-        return ans 
+        for r in range( len(s) ):
+            if s[r] in lastidx.keys():
+                
+                #l pointer only shift to right
+                if lastidx[s[r]] >= l:
+                    l = lastidx[s[r]] + 1
+            ans = max(ans, r-l+1)
+            lastidx[s[r]] = r
+        return ans
+            
+  
+      
