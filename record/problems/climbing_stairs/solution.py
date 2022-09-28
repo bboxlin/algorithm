@@ -1,8 +1,13 @@
 class Solution:
-    @cache
     def climbStairs(self, n: int) -> int:
-        if n < 2:
-            return 1
-        return self.climbStairs(n-1) + self.climbStairs(n-2)
-    
-        
+        p, q = 1, 2 
+        if n == 1: return p
+        elif n == 2: return q
+        for i in range(2,n):
+            temp = q
+            q = p + q
+            p = temp
+        return q
+            
+            
+            
