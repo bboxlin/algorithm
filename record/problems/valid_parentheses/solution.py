@@ -1,12 +1,12 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        pset = {'(':')', '{':'}', '[':']'}
+        pset = {')':'(', '}':'{', ']':'['}
         stack = []
         for c in s:
-            if c in pset.keys():
+            if c in pset.values():
                 stack.append(c)
             else:
-                if stack and pset[stack[-1]] == c:
+                if stack and stack[-1] == pset[c]:
                     stack.pop()
                 else:
                     return False
