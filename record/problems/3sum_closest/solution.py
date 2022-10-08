@@ -1,19 +1,29 @@
-class Solution:
-    def threeSumClosest(self, nums: List[int], target: int) -> int:
-        ans = nums[0] + nums[1] + nums[2]
-        n = len(nums)
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        diff = float('inf')
+        ans = 0
+        l = len(nums)
+        
         nums.sort()
-        
-        for i in range (n):
-            l = i+1
-            r = n-1
-            while l < r:
-                res = nums[i] + nums[l] + nums[r]
-                if abs(target - ans) > abs(target - res):
-                    ans = res
-                elif res < target: l+=1
-                elif res > target: r-=1
+        for i in xrange(l):
+            lo = i + 1
+            hi = l - 1
+            
+            while lo < hi:
+                s = nums[i] + nums[lo] + nums[hi]
+                d = abs(target - s)
+                if d == 0:
+                    return s
+                if d < diff:
+                    diff = d
+                    ans = s
+                if s < target:
+                    lo += 1
                 else:
-                    return ans #ans = target
+                    hi -= 1
         return ans
-        
