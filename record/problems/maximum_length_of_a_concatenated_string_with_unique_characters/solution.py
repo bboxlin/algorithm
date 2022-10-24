@@ -1,11 +1,12 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        ans = 0
-        unique = [""]
-        for s in arr:
-            for u in unique:
-                x = s + u
-                if len(x) == len(set(x)):
-                    unique.append(x)
-                    ans = max(ans, len(x))
-        return ans
+        
+        def dfs(pos, s):
+            if len(s) != len(set(s)):
+                return 0
+            ans = len(s)
+            for i in range(pos, len(arr)):
+                ans = max(ans, dfs(i+1, s+arr[i]))
+            return ans
+        
+        return dfs(0, "")
