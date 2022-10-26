@@ -6,10 +6,9 @@ class Solution:
         for i in range(len(nums)):
             cursum += nums[i]
             rem = cursum % k
-            if rem in memo.keys() and i - memo[rem] > 1 :
+            if rem in memo and i - memo[rem] > 1 :
                 return True
-            
-            if rem not in memo.keys():
+            if rem not in memo:
                 memo[rem] = i
         return False
     
