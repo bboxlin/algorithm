@@ -7,7 +7,8 @@ class Solution:
         #     k = tuple(sorted(list(word)))
         #     dic[k].append(word)
         # return dic.values()
-    
+        
+        # 26*n = O(n)
         dic = defaultdict(list)
         for word in strs:
             keylist = [0] * 26
