@@ -1,22 +1,23 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         
-        # dfs
-        def markIsland(r, c):
-            if r < 0 or r >= rows or c >= cols or c < 0 or grid[r][c] != '1':
+         
+        def markIsland(i, j):
+            if i < 0 or i >= rows or j < 0 or j >= cols:
+                return
+            if grid[i][j] != '1':
                 return 
-            grid[r][c] = '0'
-            markIsland(r+1, c)
-            markIsland(r-1, c)
-            markIsland(r, c+1)
-            markIsland(r, c-1)
-
-        ans = 0
+            grid[i][j] = '0'
+            for di, dj in [(1,0), (-1,0), (0,1), (0,-1)]:
+                markIsland(i+di, j+dj)
+        
+        cnt = 0 
         rows = len(grid)
         cols = len(grid[0])
         for i in range(rows):
             for j in range(cols):
                 if grid[i][j] == '1':
                     markIsland(i,j)
-                    ans += 1
-        return ans
+                    cnt += 1
+                    
+        return cnt
