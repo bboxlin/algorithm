@@ -5,7 +5,7 @@ class Solution:
         for x, y in roads:
             graph[x].append(y)
             graph[y].append(x)
-        print(graph)
+
         def dfs(city):
             visited.add(city)
             p = 0
@@ -15,9 +15,7 @@ class Solution:
                 dp, df = dfs(nxtcity)
                 p += dp 
                 f += df
-                print('in', city)
-            
-            print('out', city)
+
             # when we at capital return (p,f)
             if city == 0:
                 return (p,f)
