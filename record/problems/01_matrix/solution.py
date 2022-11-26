@@ -1,21 +1,24 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        m, n = len(mat), len(mat[0])
-
-        for r in range(m):
-            for c in range(n):
-                if mat[r][c] > 0:
-                    top = mat[r - 1][c] + 1 if r > 0 else math.inf
-                    left = mat[r][c - 1] + 1 if c > 0 else math.inf
-                    mat[r][c] = min(top, left) # very important as we will lookback mat we keep the cur min
-
-        for r in range(m - 1, -1, -1):
-            for c in range(n - 1, -1, -1):
-                if mat[r][c] > 0:
-                    bottom = mat[r + 1][c] + 1 if r < m - 1 else math.inf
-                    right = mat[r][c + 1] + 1 if c < n - 1 else math.inf
-                    mat[r][c] = min(mat[r][c], bottom, right) # very important as we will lookback mat we keep the cur min
-
-        return mat
-                    
+        rows = len(mat)
+        cols = len(mat[0])
+        dp = [ [math.inf] *cols for _ in range(rows) ]
         
+        for i in range(rows):
+            for j in range(cols):
+                if mat[i][j] == 0:
+                    dp[i][j] = 0
+                else:
+                    up = dp[i-1][j] if i > 0 else math.inf 
+                    left = dp[i][j-1] if j > 0 else math.inf 
+                    dp[i][j] = min(up,left) + 1
+        
+        for i in range(rows-1, -1, -1):
+            for j in range(cols-1, -1, -1):
+                if mat[i][j] == 0:
+                    dp[i][j] = 0
+                else:
+                    down = dp[i+1][j] if i < rows-1 else math.inf 
+                    right = dp[i][j+1] if j < cols - 1 else math.inf 
+                    dp[i][j] = min( min(down, right) + 1, dp[i][j] ) 
+        return dp
