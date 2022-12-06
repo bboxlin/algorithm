@@ -1,20 +1,12 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        def backTrack(idx, acc):
-            if idx >= n:
-                ans.append(acc.copy())
-                return
-            
-            # decision to include nums[i]
-            acc.append(nums[idx])
-            backTrack(idx+1, acc)
-            
-            # decision to exclude nums[i]
-            acc.pop()
-            backTrack(idx+1, acc)
- 
+        def backTrack(start, acc):
+            ans.append(acc.copy())
+            for i in range(start, n):
+                acc.append(nums[i])
+                backTrack(i + 1, acc)
+                acc.pop()
         n = len(nums)
         ans = []
         backTrack(0, [])
         return ans
- 
