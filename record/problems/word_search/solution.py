@@ -1,20 +1,28 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        
-        def dfs(i, j, k, curval=None):
-            if k == len(word): return True
-            if i < 0 or j < 0 or i >= R or j >= C or board[i][j] != word[k]: return False
+
+        def dfs(i, j, k):
+            if k == len(word):
+                return True 
+            if i < 0 or i >= rows or j < 0 or j >= cols:
+                return False 
+            if board[i][j] != word[k]:
+                return False 
+
+            val = board[i][j]
+            board[i][j] = '#'
+            exists = False 
+            for di, dj in [(1, 0), (-1, 0), (0,-1), (0,1)]:
+                exists |= dfs(i+di, j+dj, k+1)
+            board[i][j] = val
+ 
+            return exists
             
-            # curval recorded, mark this position # meaning visited
-            curval, board[i][j] = board[i][j], '#'
-            res = dfs(i+1, j, k+1, curval) or dfs(i-1, j, k+1, curval) or dfs(i, j+1, k+1, curval) or dfs(i, j-1, k+1, curval)
-            
-            # when backtrack reverse the visited to its original value
-            board[i][j] = curval
-            return res
-        
-        R, C = len(board), len(board[0])
-        for r in range(R):
-            for c in range(C):
-                if dfs(r, c, 0):return True
-        return False
+        rows = len(board)
+        cols = len(board[0])
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0]:
+                    if dfs(i,j,0):
+                        return True 
+        return False 
