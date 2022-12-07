@@ -5,12 +5,19 @@ class Solution:
         while left < right:
             steps = right - left
             for i in range(steps):
-                tem = matrix[top][left+i]
+                temp = matrix[top][left+i]
+                # top to right = left bottom to up
                 matrix[top][left+i] = matrix[bottom-i][left]
+                # left bottom to up = bottom to left
                 matrix[bottom-i][left] = matrix[bottom][right-i]
-                matrix[bottom][right-i] = matrix[top + i][right]
-                matrix[top + i][right] = tem
+                # bottom to left = right top to down
+                matrix[bottom][right-i] = matrix[top+i][right]
+                # right top to down = top to right
+                matrix[top+i][right] = temp
             left += 1
-            right -=1 
-            top += 1
+            right -= 1
             bottom -= 1
+            top += 1
+
+
+        
