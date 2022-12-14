@@ -1,34 +1,21 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        
-        def find(x):
-            if x == root[x]:
-                return x
-            root[x] = find(root[x])
-            return root[x]
-        
-        def union(x,y):
-            rootX = find(x)
-            rootY = find(y)
-            if rootX != rootY:
-                if rank[rootX] > rank[rootY]:
-                    root[rootY] = rootX
-                elif rank[rootX] < rank[rootY]:
-                    root[rootX] = rootY
-                else:
-                    root[rootY] = rootX
-                    rank[rootX] += 1
-                    
-        root = [i for i in range(n)]
-        rank = [1]*n
-        
-        # union vertices
+        def dfs(node):
+            visited.add(node)
+            for dnode in graph[node]:
+                if dnode not in visited:
+                    dfs(dnode)
+
+        graph = defaultdict(list)
         for x, y in edges:
-            union(x,y)
-        
-        # add all vertices find result to set
-        distinct_root = set()
-        for v_index in range(n):
-            distinct_root.add(find(v_index)) 
-            
-        return len(distinct_root)
+            graph[x].append(y)
+            graph[y].append(x)
+
+        visited = set()
+        ans = 0
+        for x in range(n):
+            if x not in visited:
+                dfs(x)
+                ans += 1
+
+        return ans
