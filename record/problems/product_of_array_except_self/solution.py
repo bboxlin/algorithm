@@ -1,20 +1,15 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        ans = [1] * n
+        # ans is a pre-product except itself from left to right 
+        ans = [] 
+        p = 1 
+        for num in nums:
+            ans.append(p)
+            p *= num 
 
-
-        pre = 1 
-        for i in range(n):
-            ans[i] = pre
-            pre = pre * nums[i]
-        
-        pox = 1
-        for i in range(n-1, -1, -1):
-            ans[i] = ans[i] * pox
-            pox = pox * nums[i]
-            
+        # ans is now a pre-product * post-product except itself.
+        posp = 1
+        for i in range( len(nums)-1, -1, -1):
+            ans[i] *= posp
+            posp *= nums[i]
         return ans
-        
-        
-        
