@@ -5,11 +5,14 @@ class Solution:
         
         """
         freqTable = defaultdict(int)
+        maxcnt = 0
         ans = 0 
         l = 0 
         for r, ch in enumerate(s):
             freqTable[ch] += 1
-            while r-l+1 - max(freqTable.values()) > k:
+            maxcnt = max(maxcnt, freqTable[ch])
+            #总长度 - 最大频 = 可调整字符
+            while r-l+1 - maxcnt > k:
                 freqTable[s[l]] -= 1
                 l+=1
             ans = max(ans, r-l+1)
