@@ -1,32 +1,29 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        len_s1 = len(s1)
-        len_s2 = len(s2)
-        if len_s1 > len_s2: return False 
+        if len(s1) > len(s2):
+            return False
+
+        match = [0] * 26
+        for ch in s1:
+            match[ord(ch)-ord('a')] += 1
         
-        s1_freq = [0] * 26
-        for c in s1:
-            s1_freq[ord(c)-ord('a')] += 1
+        # window setup
+        window  = [0] * 26
+        winsize = len(s1)
+        for i in range(winsize):
+            window[ord(s2[i]) - ord('a')] += 1
         
-        s2_freq = [0] * 26
-        for i in range(len_s1):
-            s2_freq[ord(s2[i]) - ord('a')] += 1
-        
-        if s1_freq == s2_freq: return True 
-        
-        for r in range(len_s1, len_s2):
-            addchar = s2[r] # r =2
-            removechar = s2[r-len_s1] # 2-2= 0
-            
-            s2_freq[ord(addchar) - ord('a')] += 1
-            s2_freq[ord(removechar) - ord('a')] -= 1
-            
-            if s1_freq == s2_freq: return True
-            
+        if window == match: return True
+
+        # window sliding 
+        for i in range(winsize, len(s2)):
+            window[ord(s2[i]) - ord('a')] += 1 
+            window[ord(s2[i-winsize]) - ord('a')] -= 1
+            if window == match:
+                return True 
         return False
+
+
     
-            
-        
-        
         
         
