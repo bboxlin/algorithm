@@ -11,6 +11,7 @@ class Solution:
                 return 
             for j in range(i, min(i+3, len(s) )):
                 curval = int(s[i:j+1])
+                               # i == j indicate a single number OR not leading zero
                 if curval <= 255 and (i == j or s[i] != '0'):
                     dfs(j+1, dot+1, ip+str(curval)+'.')
                     
