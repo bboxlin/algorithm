@@ -1,18 +1,14 @@
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        # i = slow pointer, j = fast pointer
-        # i<=j, i+x=j, where among the x range, [i+x] = 0
-        # i++ for each swap when [j] != 0 is safe
-        i = 0
-        for j in range(len(nums)):
-            if nums[j] != 0:
-                nums[i], nums[j] = nums[j], nums[i]
-                i+=1
-                
-             
-                
-            
-                
+        n = len(nums)
+        # 思路2
+        # EASY TO UNDERSTAND
+        one = 0
+        for i in range(n):
+            if nums[i] != 0:
+                nums[one] = nums[i]
+                one += 1
+        for i in range(one, n):
+            nums[i] = 0
+     
+    
