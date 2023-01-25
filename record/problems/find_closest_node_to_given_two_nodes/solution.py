@@ -16,7 +16,6 @@ class Solution:
         markDistance(node1, d1)
         markDistance(node2, d2)
         
-        print(d1, d2)
         mindis = float('inf')
         ansnode = -1
         for i in range(n-1, -1, -1):
