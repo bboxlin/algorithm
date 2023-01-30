@@ -1,11 +1,8 @@
 class Solution:
+    @cache
     def tribonacci(self, n: int) -> int:
-        dp = [0] * (n+1)
-        for i in range(n+1):
-            if i == 0: dp[i] = 0
-            elif i == 1: dp[i] = 1
-            elif i == 2: dp[i] = 1
-            else: dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
-        return dp[n]
-                
-                    
+        if n == 0:
+            return 0
+        if n == 1 or n == 2:
+            return 1
+        return self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3) 
