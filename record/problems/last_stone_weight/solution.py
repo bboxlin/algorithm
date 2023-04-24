@@ -11,3 +11,5 @@ class Solution:
             heapq.heappush(max_heap, y-x)
         if not max_heap: return 0
         return heapq.heappop(max_heap)*(-1)
+            
+
