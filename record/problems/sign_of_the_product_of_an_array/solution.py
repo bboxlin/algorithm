@@ -1,8 +1,9 @@
 class Solution:
     def arraySign(self, nums: List[int]) -> int:
-        sign = 1
-        for n in nums:
-            if n == 0: return 0
-            elif n < 0:
-                sign = sign * -1
-        return sign
+        cnt = 0
+        for num in nums:
+            if num < 0:
+                cnt += 1
+            if num == 0:
+                return 0
+        return 1 if cnt % 2 == 0 else -1
