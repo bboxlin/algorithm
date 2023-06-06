@@ -1,12 +1,16 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [math.inf] * n
-        for i in range(n):
-            if i == 0: dp[i] = 0
-            maxnxt = min(i + nums[i], n-1)
-            for j in range(i+1, maxnxt+1):
-                dp[j] = min(dp[j], dp[i] + 1)
-        return dp[n-1]
-                
+        # BFS as a sliding window
+        # each jump we maintain a [l, r] distance 
+        # then go to [l, r] distance and find out the right boundaries 
+        res = 0
+        l, r = 0, 0
+        nxtfartest = 0
+        while r < len(nums) - 1:
+            for i in range(l, r+1):
+                nxtfartest = max(nxtfartest, i + nums[i])
+            l = r + 1
+            r = nxtfartest
+            res += 1
+        return res 
             
