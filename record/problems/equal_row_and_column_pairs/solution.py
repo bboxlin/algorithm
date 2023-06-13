@@ -1,18 +1,16 @@
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
-        
-        n = len(grid)
-        rowItems = collections.defaultdict(list)
-        colItems = collections.defaultdict(list)
-        for i in range(n):
-            for j in range(n):
-                rowItems[i].append(grid[i][j])
-                colItems[j].append(grid[i][j])
-        
-        ans = 0
-        for rowidx, ritems in rowItems.items():
-            for colidx, citems in colItems.items():
-                if ritems == citems:
-                    ans += 1        
-        return ans
-        
+        res = 0
+        freq = defaultdict(int)
+        rows = len(grid)
+        cols = len(grid[0])
+
+        for i in range(rows):
+            freq[tuple(grid[i])] += 1
+
+        for j in range(cols):
+            curcol = []
+            for i in range(rows):
+                curcol.append(grid[i][j])
+            res += freq[tuple(curcol)]
+        return res
