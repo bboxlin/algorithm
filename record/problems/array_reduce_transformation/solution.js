@@ -4,6 +4,8 @@
  * @param {number} init
  * @return {number}
  */
+
+ 
 var reduce = function(nums, fn, init) {
     let acc = init
     for(let num of nums){ 
